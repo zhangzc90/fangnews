@@ -1,0 +1,36 @@
+<!--pages/detail/detail.wxml-->
+<view class='container'>
+    <view class='slider'>
+        <swiper indicator-dots='true' autoplay='true' circular='true'>
+            <block>
+                <swiper-item>
+                    <image mode='aspectFill' src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508225593&di=e5861a010088409c19967d2eadbc680a&imgtype=jpg&er=1&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fd52a2834349b033b1c4bcdcf1fce36d3d439bde7.jpg'></image>
+                </swiper-item>
+                <swiper-item>
+                    <image mode='aspectFill' src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507630875312&di=09de83fc93a2465477f46a07264a91be&imgtype=0&src=http%3A%2F%2Fpic36.nipic.com%2F20131203%2F3822951_101052690000_2.jpg'></image>
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+    <view class='name'>
+        <text>南北向两居室中层2，业主诚心出售</text>
+    </view>
+    <view class='info-box'>
+        <block>
+            <view class='info'>
+                <view>售价</view>
+                <text>195万</text>
+            </view>
+            <view class='info'>
+                <view>户型</view>
+                <text>2室1厅</text>
+            </view>
+            <view class='info'>
+                <view>面积</view>
+                <text>85平米</text>
+            </view>
+        </block>
+    </view>
+    <view class='detailed'></view>
+    <view class='call'></view>
+</view>

@@ -1,0 +1,12 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/detail/index"
+    ],
+    "window": {
+        "backgroundTextStyle": "dark",
+        "navigationBarTitleText": "我的小程序",
+        "navigationBarTextStyle": "white",
+        "navigationBarBackgroundColor": "#33CCFF"     
+    }
+}

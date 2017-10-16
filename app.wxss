@@ -1,0 +1,6 @@
+page{
+    font-size: 28rpx;
+}
+view,text{
+    box-sizing: border-box;
+}

@@ -1,0 +1,47 @@
+<view class='container'>
+    <!--搜索框  -->
+    <view class='searchbar'>
+        <input type='text' placeholder='搜索优质房源' placeholder-class='search_center'></input>
+    </view>
+    <!--选择框  -->
+    <view class='choosebar'>
+        <view class='chooseitem'>
+            <picker bindchange='bindAreaChange' mode='region' value='{{region}}'>
+                区域
+            </picker>
+        </view>
+        <view class='chooseitem'>
+            <picker bindchange='bindPriceChange' model='multiSelector' range='{{price}}' range-key='{{"name"}}'>
+                价格
+            </picker>
+        </view>
+        <view class='chooseitem'>
+            <picker range='{{floors}}' range-key='{{"name"}}' bindchange='bindFloorsChange'>
+                楼层
+            </picker>
+        </view>
+        <view class='chooseitem'>
+            <picker range='{{layout}}' range-key='{{"name"}}'>
+                户型
+            </picker>
+        </view>
+    </view>
+    <!--数据框  -->
+    <view class='datalist'>
+        <block wx:for="{{dataList}}">
+            <view class='box' bindtap='openDetail' data-uid='{{item.uid}}'>
+                <view class='icon'>
+                    <image mode='aspectFill' src='https://api.yunhuangtech.com/house/upload/banner/{{item.images}}'></image>
+                </view>
+                <view class='detail'>
+                    <text class='title'>{{item.name}}</text>
+                    <text class='summary'>{{item.laytou1}}室{{item.layout2}}厅 | {{item.acreage}}㎡ | {{item.location_p}}-{{item.location_c}}-{{item.location_d}}</text>
+                    <text class='price'>
+                        <text class='bold'>{{item.price}}万</text>
+                    </text>
+                </view>
+            </view>
+        </block>
+    </view>
+    <view class='tail' style='display:{{tailDisplay}}'>没有可加载的数据了！</view>
+</view>
