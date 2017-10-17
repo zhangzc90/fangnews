@@ -3,8 +3,21 @@
     padding: 0;
     margin: 0;
 }
+.searchbar{
+	width: 100%;
+	padding: 10rpx;
+	background: #fff;
+}
+.searchbar input{
+	background: rgb(241, 241, 249);
+	border-radius: 5rpx;
+	padding: 5rpx 20rpx;
+	height: 60rpx;
+}
 .search_center{
     text-align: center;
+	font-weight: 300;
+	color:#666;
 }
 .choosebar{
     display: flex;
@@ -12,6 +25,12 @@
 .chooseitem{
     flex: 1;
     text-align: center;
+	padding: 15rpx 0;
+	border-top:2rpx solid rgb(247, 247, 252);
+	border-bottom:2rpx solid rgb(247, 247, 252);
+}
+.chooseitem:not(:nth-child(1)){
+	border-left: 2rpx solid rgb(247, 247, 252);
 }
 
 .datalist{
@@ -27,8 +46,8 @@
     border-bottom: 1px solid #e7e7eb;
 }
 .datalist .box .icon image{
-    width: 220rpx;
-    height: 150rpx;
+    width: 252rpx;
+    height: 160rpx;
 }
 .datalist .box .detail{
     padding-left: 15rpx;
@@ -38,7 +57,7 @@
     display: block;
 }
 .datalist .box .detail .title{
-    width: 490rpx; 
+    width: 100%; 
     font-size: 30rpx;
     color: #000;
     overflow: hidden;
@@ -49,17 +68,37 @@
 .datalist .box .detail .summary{
     padding: 10rpx 0 5rpx 0; 
 }
-.datalist .box .detail .price{
-    padding:0;
+.flex{
+	display: flex;
 }
 .datalist .box .detail .price{
-    color: #CC0033;
+	padding:0;
+    color: rgb(243, 173, 100);
     font-weight: bold;
     font-size: 28rpx;
+	flex:1;
+	text-align:right;
 }
 .tail{
     text-align: center;
     font-size: 24rpx;
     padding: 8rpx 0;
     color: #9a999e;
+}
+.down{
+	width:20rpx;
+	height: 20rpx;
+}
+.datalist .box .detail .acreage text ,.datalist .box .detail .layout text{
+	display: inline-block;
+	color: rgb(243, 173, 100);
+	padding-right: 10rpx;
+}
+.tagwrap{
+	color: rgb(243, 173, 100);
+	border: 1rpx solid rgb(243, 173, 100);
+	border-radius: 5rpx;
+	margin-right: 10rpx;
+	font-size: 20rpx;
+	padding: 2rpx 4rpx;	
 }

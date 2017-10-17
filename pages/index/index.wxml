@@ -1,28 +1,32 @@
 <view class='container'>
     <!--搜索框  -->
     <view class='searchbar'>
-        <input type='text' placeholder='搜索优质房源' placeholder-class='search_center'></input>
+        <input bindconfirm='search'  type='text' placeholder='搜索优质房源' confirm-type='search' placeholder-class='search_center'></input>
     </view>
     <!--选择框  -->
     <view class='choosebar'>
         <view class='chooseitem'>
             <picker bindchange='bindAreaChange' mode='region' value='{{region}}'>
-                区域
+                <view wx:if="{{map.location}}">{{format.location(map.location)}}</view>
+                <view wx:else>区域<image class='down' src='../images/down.png'></image></view>
             </picker>
         </view>
         <view class='chooseitem'>
             <picker bindchange='bindPriceChange' model='multiSelector' range='{{price}}' range-key='{{"name"}}'>
-                价格
+                <view wx:if="{{map.price}}">{{format.price(map.price)}}</view>
+                <view wx:else>价格<image class='down' src='../images/down.png'></image></view>
             </picker>
         </view>
         <view class='chooseitem'>
             <picker range='{{floors}}' range-key='{{"name"}}' bindchange='bindFloorsChange'>
-                楼层
+                <view wx:if="{{map.floors}}">{{format.floor(map.floors)}}</view>
+                <view wx:else>楼层<image class='down' src='../images/down.png'></image></view>
             </picker>
         </view>
         <view class='chooseitem'>
-            <picker range='{{layout}}' range-key='{{"name"}}'>
-                户型
+            <picker bindchange='bindLayoutChange' range='{{layout}}' range-key='{{"name"}}'>
+                <view wx:if="{{map.layout}}">{{format.layout(map.layout)}}</view>
+                <view wx:else>户型<image class='down' src='../images/down.png'></image></view>
             </picker>
         </view>
     </view>
@@ -35,13 +39,71 @@
                 </view>
                 <view class='detail'>
                     <text class='title'>{{item.name}}</text>
-                    <text class='summary'>{{item.laytou1}}室{{item.layout2}}厅 | {{item.acreage}}㎡ | {{item.location_p}}-{{item.location_c}}-{{item.location_d}}</text>
-                    <text class='price'>
-                        <text class='bold'>{{item.price}}万</text>
-                    </text>
+                    <text class='summary'>{{item.location_p}}-{{item.location_c}}-{{item.location_a}}</text>
+					<view class='flex'>
+						<text class='acreage'>面积：<text>{{item.acreage}}㎡</text></text>
+						<text class='layout'>户型：<text>{{item.layout1}}室{{item.layout2}}厅</text></text>
+						<text class='price'>
+							<text class='bold'>￥{{item.price}}万</text>
+						</text>
+					</view>
+					<view class='flex'>
+						<block wx:for="{{item.tags}}" wx:for-item='tag'>
+							<text class='tagwrap'>{{tag}}</text>
+						</block>
+					</view>
                 </view>
             </view>
         </block>
     </view>
     <view class='tail' style='display:{{tailDisplay}}'>没有可加载的数据了！</view>
 </view>
+<wxs module='format'>
+    var price=function(args){
+        var price=JSON.parse(args);
+        if(price.high=='')
+            return price.low+'万以上';
+        else if(price.low=='')
+            return price.high+'万以下'; 
+        return price.low+'-'+price.high+'万';
+    }
+    var floor=function(args){
+        console.log(args);
+        switch(args){
+            case 1:
+                return '低层';
+            case 2:
+                return '中层';
+            case 3:
+                return '高层';
+            case 4:
+                return '别墅';
+            default:
+                break;
+       }
+    }
+    var location=function(args){
+        var location=args.toString();
+        return location.replace('省','').replace('市','').replace('区','');
+    }
+    var layout=function(args){
+        switch(args){
+            case 1:
+                return '一室';
+            case 2:
+                return '两室';
+            case 3:
+                return '三室';
+            case 4:
+                return '四室';
+            case 5:
+                return '五室';
+            case 6:
+                return '五室以上';
+        }
+    }
+    module.exports.price=price;
+    module.exports.floor=floor;
+    module.exports.layout=layout;
+    module.exports.location=location;
+</wxs>

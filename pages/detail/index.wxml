@@ -1,36 +1,88 @@
 <!--pages/detail/detail.wxml-->
+<import src="../../wxParse/wxParse.wxml"/> 
 <view class='container'>
     <view class='slider'>
         <swiper indicator-dots='true' autoplay='true' circular='true'>
-            <block>
-                <swiper-item>
-                    <image mode='aspectFill' src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508225593&di=e5861a010088409c19967d2eadbc680a&imgtype=jpg&er=1&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fd52a2834349b033b1c4bcdcf1fce36d3d439bde7.jpg'></image>
-                </swiper-item>
-                <swiper-item>
-                    <image mode='aspectFill' src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507630875312&di=09de83fc93a2465477f46a07264a91be&imgtype=0&src=http%3A%2F%2Fpic36.nipic.com%2F20131203%2F3822951_101052690000_2.jpg'></image>
+            <block wx:for="{{detail.images}}">
+                <swiper-item wx:if="{{item!=''}}">
+                    <image mode='aspectFill' src='https://api.yunhuangtech.com/house/upload/banner/{{item}}'></image>
                 </swiper-item>
             </block>
         </swiper>
     </view>
     <view class='name'>
-        <text>南北向两居室中层2，业主诚心出售</text>
+        <text>{{detail.name}}</text>
+		<view class='tags' >
+			<block wx:for="{{detail.tags}}">
+				<view wx:if="{{item!=''}}">{{item}}</view>
+			</block>
+		</view>
     </view>
     <view class='info-box'>
         <block>
-            <view class='info'>
-                <view>售价</view>
-                <text>195万</text>
+			<view class='info'>
+                <view class='icon'>
+					<image mode='widthFix' src='../images/layout.png'></image>
+				</view>
+                <text>{{detail.layout1}}室{{detail.layout2}}厅</text>
             </view>
             <view class='info'>
-                <view>户型</view>
-                <text>2室1厅</text>
+                <view class='icon'>
+					<image mode='widthFix' src='../images/price.png'></image>
+				</view>
+                <text>￥{{detail.price}}万</text>
             </view>
             <view class='info'>
-                <view>面积</view>
-                <text>85平米</text>
+                <view class='icon'>
+					<image mode='widthFix' src='../images/acreage.png'></image>
+				</view>
+                <text>{{detail.acreage}}㎡</text>
             </view>
         </block>
     </view>
-    <view class='detailed'></view>
-    <view class='call'></view>
+    <view class='detail'>
+		<view class='title'>房屋详情</view>
+		<view class='detailitem'>
+			<view class='label'>楼层：</view>
+			<view>{{detail.floors}}层</view>
+		</view>
+		<view class='detailitem'>
+			<view class='label'>朝向：</view>
+			<view>{{detail.position}}</view>
+		</view>
+		<view class='detailitem'>
+			<view class='label'>装修：</view>
+			<view wx:if="{{detail.decoration==1}}">精装</view>
+			<view wx:elif="{{detail.decoration==2}}">简装</view>
+			<view wx:else>无</view>
+		</view>
+		<view class='detailitem'>
+			<view class='label'>暖气：</view>
+			<view wx:if="{{detail.heating==1}}">有</view>
+			<view wx:else>无</view>
+		</view>
+		<view class='detailitem'>
+			<view class='label'>年代：</view>
+			<view>{{detail.years}}年</view>
+		</view>
+		<view class='detailitem'>
+			<view class='label'>地址：</view>
+			<view>{{detail.location_p}} {{detail.location_c}} {{detail.location_a}} {{detail.location_d}}</view>
+		</view>
+	</view>
+	<view class='description'>
+		<view class='title'>信息描述</view>
+		<view class='content'>
+			<template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+		</view>
+	</view>
+	<view class='map'>
+		<view class='title'>具体位置</view>
+		<view class='mapwrap'>
+			<map scale='15' longitude='{{detail.map.lng}}' latitude='{{detail.map.lat}}' markers="{{markers}}" bindtap='openNavi'></map>
+		</view>
+	</view>
+    <view class='telcall' data-tel="{{detail.tel}}" bindtap='bindCall'>
+		点击拨打咨询热线
+	</view>
 </view>

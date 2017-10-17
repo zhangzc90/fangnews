@@ -10,50 +10,73 @@ Page({
         region:['海南省','海口市'],
         price:[
             {
-                name:'1000-1500元',
-                low:'1000',
-                high:'1500'
+                name:'100万以下',
+                low:'',
+                high:'100'
             },
             {
-                name: '1500-2000元',
-                low: '1500',
-                high: '2000'
+                name: '100-150万',
+                low: '100',
+                high: '150'
             },
             {
-                name: '2000元以上',
-                low: '2000',
+                name: '150-200万',
+                low: '150',
+                high: '200'
+            },
+            {
+                name: '200万以上',
+                low: '200',
                 high: ''
             },
         ],
         floors:[
             {
-                name: '低层', 
+                name: '低层',
+                value:1 
             },
             {
-                name: '中层', 
+                name: '中层',
+                value:2 
             },
             {
-                name: '高层', 
+                name: '高层',
+                value:3
             },
             {
                 name: '别墅',
+                value:4
             },
         ],
         layout:[
             {
-                name: '一室一厅',
+                name: '一室',
+                value:1
             },
             {
-                name: '两室一厅',
+                name: '两室',
+                value:2
             },
             {
-                name: '三室一厅', 
+                name: '三室',
+                value:3 
             },
             {
-                name: '四室一厅',
+                name: '四室',
+                value:4
+            },
+            {
+                name: '五室',
+                value:5            
+            },
+            {
+                name: '五室以上',
+                value: 6
             }
         ],
-        page:1,
+        map:{
+            page: 1,
+        },
         tailDisplay:'none',
         dataList:[]
     },
@@ -85,13 +108,13 @@ Page({
                 }
             })
         }
+        // 获取列表数据
+        this.get_list(this.data.map);
     },
     onShow:function(){
-        // 获取列表数据
-        this.get_list(this.data.page);
+       
     },
     getUserInfo: function(e) {
-        console.log(e)
         app.globalData.userInfo = e.detail.userInfo
         this.setData({
             userInfo: e.detail.userInfo,
@@ -104,16 +127,49 @@ Page({
 
     // 区域变动
     bindAreaChange:function(e){
-        console.log(e.detail.value);
+        let location=e.detail.value;
+        this.setData({
+            'map.location':location
+        });
+        this.get_list(this.data.map,1);
     },
     // 价格变更
     bindPriceChange:function(e){
         let index=e.detail.value;
-        console.log(this.data.price[index]);
+        let price=this.data.price[index];
+        this.setData({
+            'map.price': JSON.stringify(price)
+        });
+        this.get_list(this.data.map,1);
     },
     // 楼层变更
     bindFloorsChange:function(e){
-        console.log(e.detail.value);
+        let index=e.detail.value;
+        let floors = this.data.floors[index]['value'];
+        this.setData({
+            'map.floors': floors
+        });
+        this.get_list(this.data.map,1);
+    },
+    // 户型变更
+    bindLayoutChange:function(e){
+        let index=e.detail.value;
+        let layout=this.data.layout[index]['value']; 
+        this.setData({
+            'map.layout': layout
+        });
+        this.get_list(this.data.map,1);
+    },
+    // 查询
+    search:function(e){
+        let searchText=e.detail.value;
+        this.setData({
+            map:{
+                'search': searchText,
+                'page': 1
+            }
+        });
+        this.get_list(this.data.map,1);
     },
     //打开详情页   
     openDetail:function(e){
@@ -126,13 +182,13 @@ Page({
     onPullDownRefresh:function(e){       
         console.log('下拉刷新');
         wx.showNavigationBarLoading() //在标题栏中显示加载
-        this.get_list(1);     
+        this.get_list(this.data.map,1);     
     },
     // 上拉加载
     onReachBottom:function(e){
         console.log('上拉加载');
         wx.showNavigationBarLoading() //在标题栏中显示加载
-        this.get_list(this.data.page);     
+        this.get_list(this.data.map);     
 
     },
     onShareAppMessage: function () {
@@ -145,31 +201,46 @@ Page({
         }
     },
     // 获取列表信息
-    get_list:function(page){
+    get_list:function(args,refresh=0){
+        if(refresh)
+            this.data.map.page=1;
         let that=this;
         wx.request({
             header: { 'content-type': 'application/x-www-form-urlencoded'},
             method:'POST',
-            data:{'page':page},
+            data:args,
             url: 'https://api.yunhuangtech.com/house/home/index/get_house_list',
-            success:function(data){
+            success:function(data){               
                 let list=data.data;
-                console.log(list);
                 if(list.code==200){
                     let datalist=that.data.dataList;
-                    for(var item of list.data){
-                        if(item.images)
-                            item.images=item.images.split(';')[0];
-                        datalist.push(item);
+                    // 条件查找
+                    if(refresh==1){
+                        datalist=[];
+                        for (var item of list.data) {
+                            if (item.images)
+                                item.images = item.images.split(';')[0];
+							if (item.tags)
+								item.tags=item.tags.split(' ');
+                            datalist.push(item);
+                        }
+                    }else{
+                        for (var item of list.data) {
+                            if (item.images)
+                                item.images = item.images.split(';')[0];
+							if (item.tags)
+								item.tags = item.tags.split(' ');
+                            datalist.push(item);
+                        } 
                     }
                     that.setData({
-                        dataList:datalist,
-                        page:page+1,
+                        'dataList': datalist,
+                        'map.page': that.data.map.page + 1,
                     });
-
                 }else{
                     that.setData({
-                        tailDisplay:'block'
+                        tailDisplay:'block',
+                        dataList:refresh?null:that.data.dataList
                     });
                     console.log('没有更多的数据了');
                 }

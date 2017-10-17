@@ -12,13 +12,13 @@
 	"projectname": "%E6%96%B0%E9%97%BB",
 	"condition": {
 		"weapp": {
-			"current": -1,
+			"current": 0,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "详情页",
 					"pathName": "pages/detail/index",
-					"query": ""
+					"query": "uid=17"
 				}
 			]
 		},

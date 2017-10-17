@@ -1,12 +1,14 @@
 {
     "pages": [
         "pages/index/index",
-        "pages/detail/index"
+        "pages/detail/index",
+        "pages/news/index",
+        "pages/archive/index"
     ],
     "window": {
         "backgroundTextStyle": "dark",
-        "navigationBarTitleText": "我的小程序",
-        "navigationBarTextStyle": "white",
-        "navigationBarBackgroundColor": "#33CCFF"     
+        "navigationBarTitleText": "小程序",
+        "navigationBarTextStyle": "black",
+        "navigationBarBackgroundColor": "#fff"
     }
 }
