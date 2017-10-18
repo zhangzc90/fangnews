@@ -10,5 +10,26 @@
         "navigationBarTitleText": "小程序",
         "navigationBarTextStyle": "black",
         "navigationBarBackgroundColor": "#fff"
-    }
+    },
+	"tabBar": {
+		"color": "#000000",
+		"selectedColor": "#F3AD64",
+		"backgroundColor": "#ffffff",
+		"position": "bottom",
+		"borderStyle": "white",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "房源",
+				"iconPath": "pages/images/fangyuan.png",
+				"selectedIconPath": "pages/images/fangyuanSelected.png"
+			},
+			{
+				"pagePath": "pages/news/index",
+				"text": "新闻",
+				"iconPath": "pages/images/news.png",
+				"selectedIconPath": "pages/images/newsSelected.png"
+			}
+		]
+	}
 }

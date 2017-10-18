@@ -32,47 +32,11 @@ Page({
 			detail_uid:options.uid,
 		});
 	},
-
-	/**
-	 * 生命周期函数--监听页面初次渲染完成
-	 */
-	onReady: function () {
-	
-	},
-
 	/**
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
 		this.get_info(this.data.detail_uid);
-	},
-
-	/**
-	 * 生命周期函数--监听页面隐藏
-	 */
-	onHide: function () {
-	
-	},
-
-	/**
-	 * 生命周期函数--监听页面卸载
-	 */
-	onUnload: function () {
-	
-	},
-
-	/**
-	 * 页面相关事件处理函数--监听用户下拉动作
-	 */
-	onPullDownRefresh: function () {
-	
-	},
-
-	/**
-	 * 页面上拉触底事件的处理函数
-	 */
-	onReachBottom: function () {
-	
 	},
 
 	/**
@@ -96,20 +60,29 @@ Page({
 				if(info.code==200){
 					// 设置图片列表
 					var imgs=info.data.images;
-					var imglist=imgs.split(';');
-					info.data.images=imglist;
+					if(imgs){
+						var imglist = imgs.split(';');
+						info.data.images = imglist;
+					}
 					// 转换地图坐标
-					var map = JSON.parse(info.data.map);
-					map = that.Convert_BD09_To_GCJ02(map.lat,map.lng);
+					if(info.data.map){
+						var map = JSON.parse(info.data.map);
+						map = that.Convert_BD09_To_GCJ02(map.lat, map.lng);
+						info.data.map = map;
+						// 设置markers地图标记
+						that.setData({
+							'markers[0].latitude': map.lat,
+							'markers[0].longitude': map.lng,
+							'markers[0].callout.content': info.data.location_d,
+						});
+					}
 					// 设置标签
-					var tags=info.data.tags.split(' ');
-					info.data.tags=tags;
-					that.setData({
-						'markers[0].latitude':map.lat,
-						'markers[0].longitude': map.lng,
-						'markers[0].callout.content': info.data.location_d,
-					});
-					info.data.map=map;
+					if (info.data.tags){
+						var tags = info.data.tags.split(' ');
+						info.data.tags = tags;
+					}
+				
+					// 微信文章转换
 					WxParse.wxParse('article', 'html', info.data.description, that, 5);
 					that.setData({
 						detail:info.data
@@ -132,29 +105,38 @@ Page({
 	// 打开导航
 	openNavi:function(){
 		var that = this;
-		console.log('导航');
-		wx.openLocation({
-			latitude: that.data.detail.map.lat,
-			longitude: that.data.detail.map.lng,
-			scale: 28,
-			complete: function () {
-				console.log(this.data);
+		wx.getSetting({
+			success: (res) => {
+				console.log(res);
+				if (!res.authSetting['scope.userLocation']) {
+					wx.authorize({
+						scope: 'scope.userLocation',
+						success() {
+							wx.openLocation({
+								latitude: that.data.detail.map.lat,
+								longitude: that.data.detail.map.lng,
+								scale: 28,
+							})  
+						}
+					})
+				}else{
+					wx.openLocation({
+						latitude: that.data.detail.map.lat,
+						longitude: that.data.detail.map.lng,
+						scale: 28,
+					})  
+				}
 			}
-		})  
+		})
+		
 	},
 	// 拨打电话
 	bindCall:function(e){
-		let phoneNumber=e.currentTarget.dataset.tel;
+		let phoneNumber=e.currentTarget.dataset.tel;		
 		wx.makePhoneCall({
 			phoneNumber:phoneNumber,
 			success:function(){
 				console.log('拨打成功');
-			},
-			error:function(e){
-				console.log(e);
-			},
-			complete(){
-				console.log('完成');
 			}
 		});
 	}

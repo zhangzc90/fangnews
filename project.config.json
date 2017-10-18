@@ -12,13 +12,25 @@
 	"projectname": "%E6%96%B0%E9%97%BB",
 	"condition": {
 		"weapp": {
-			"current": 0,
+			"current": 2,
 			"list": [
 				{
 					"id": 0,
 					"name": "详情页",
 					"pathName": "pages/detail/index",
 					"query": "uid=17"
+				},
+				{
+					"id": -1,
+					"name": "新闻列表",
+					"pathName": "pages/news/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "新闻页面",
+					"pathName": "pages/archive/index",
+					"query": "uid=1"
 				}
 			]
 		},

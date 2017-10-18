@@ -1,2 +1,17 @@
-<!--pages/news/index.wxml-->
-<text>pages/news/index.wxml</text>
+<view class='list'>
+	<block wx:for="{{list}}">
+		<view class='item' bindtap='bindOpenUrl' data-uid="{{item.id}}">
+			<view class='thumbnail'>
+				<image mode='aspectFill' src='https://api.yunhuangtech.com/house/{{item.post_thumbnail}}'></image>
+			</view>
+			<view class='content'>
+				<text class='title'>{{item.post_title}}</text>
+				<view class='detail'>
+					<image class='time' src='../images/time.png'></image>
+					<text>{{item.post_date}}</text>
+				</view>
+			</view>
+		</view>
+	</block>
+</view>
+<view class='tail' style='display:{{tailDisplay}}'>没有可加载的数据了！</view>

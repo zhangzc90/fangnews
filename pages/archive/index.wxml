@@ -1,2 +1,8 @@
-<!--pages/archive/index.wxml-->
-<text>pages/archive/index.wxml</text>
+<import src="../../wxParse/wxParse.wxml"/>
+<view class='container'>
+	<view class='title'>{{content.post_title}}</view>
+	<view class='summary'>房源资讯：{{content.post_date}}</view>
+	<view class='content'>
+		<template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+	</view> 
+</view>

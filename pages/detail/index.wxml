@@ -83,6 +83,6 @@
 		</view>
 	</view>
     <view class='telcall' data-tel="{{detail.tel}}" bindtap='bindCall'>
-		点击拨打咨询热线
+		咨询热线：{{detail.tel}}
 	</view>
 </view>
