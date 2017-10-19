@@ -54,7 +54,7 @@
 			<view class='label'>装修：</view>
 			<view wx:if="{{detail.decoration==1}}">精装</view>
 			<view wx:elif="{{detail.decoration==2}}">简装</view>
-			<view wx:else>无</view>
+			<view wx:else>毛坯</view>
 		</view>
 		<view class='detailitem'>
 			<view class='label'>暖气：</view>
@@ -83,6 +83,6 @@
 		</view>
 	</view>
     <view class='telcall' data-tel="{{detail.tel}}" bindtap='bindCall'>
-		咨询热线：{{detail.tel}}
+		咨询热线：<text wx:if="{{detail.tel}}">{{detail.tel}}</text>
 	</view>
 </view>

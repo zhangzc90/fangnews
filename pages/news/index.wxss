@@ -25,9 +25,10 @@
 	display: block;
 }
 .item .content .title{
-	 width: 100%; 
+	width: 100%; 
     font-size: 30rpx;
     color: #000;
+	font-weight: 300;
 }
 .item .content .detail{
 	width: 100%;

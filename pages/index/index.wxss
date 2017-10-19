@@ -4,15 +4,22 @@
     margin: 0;
 }
 .searchbar{
+	display: flex;
 	width: 100%;
 	padding: 10rpx;
 	background: #fff;
 }
 .searchbar input{
+	flex: 1;
 	background: rgb(241, 241, 249);
 	border-radius: 5rpx;
 	padding: 5rpx 20rpx;
 	height: 60rpx;
+}
+.searchbar image{
+	padding: 10rpx;
+	width: 50rpx;
+	height: 50rpx;
 }
 .search_center{
     text-align: center;
@@ -57,13 +64,14 @@
     display: block;
 }
 .datalist .box .detail .title{
-    width: 100%; 
+    width: 443rpx; 
     font-size: 30rpx;
     color: #000;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     word-break: break-all;   
+	font-weight: 300;
 }
 .datalist .box .detail .summary{
     padding: 10rpx 0 5rpx 0; 

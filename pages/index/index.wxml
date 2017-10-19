@@ -1,7 +1,7 @@
 <view class='container'>
     <!--搜索框  -->
     <view class='searchbar'>
-        <input bindconfirm='search'  type='text' placeholder='搜索优质房源' confirm-type='search' placeholder-class='search_center'></input>
+        <input bindconfirm='search'  type='text' placeholder='搜索优质房源' confirm-type='search' placeholder-class='search_center'></input><image bindtap='reload' src='../images/reload.png'></image>
     </view>
     <!--选择框  -->
     <view class='choosebar'>

@@ -38,7 +38,7 @@ map{
 .name{
 	padding: 20rpx;
 	font-size: 30rpx;
-	font-weight: bold;
+	font-weight: 300;
 	margin-bottom: 10rpx;
 	background: #fff;
 }

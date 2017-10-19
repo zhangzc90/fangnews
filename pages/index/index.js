@@ -178,6 +178,15 @@ Page({
             url: '/pages/detail/index?uid='+uid,
         })
     },
+	// 刷新回到初始数据
+	reload:function(){
+		this.setData({
+			map:{
+				page:1
+			}
+		});
+		this.get_list(this.data.map);
+	},
     // 下拉刷新
     onPullDownRefresh:function(e){       
         console.log('下拉刷新');
@@ -214,25 +223,25 @@ Page({
                 let list=data.data;
                 if(list.code==200){
                     let datalist=that.data.dataList;
-                    // 条件查找
+                    // 条件查找清空原数据列表
                     if(refresh==1){
-                        datalist=[];
-                        for (var item of list.data) {
-                            if (item.images)
-                                item.images = item.images.split(';')[0];
-							if (item.tags)
-								item.tags=item.tags.split(' ');
-                            datalist.push(item);
-                        }
-                    }else{
-                        for (var item of list.data) {
-                            if (item.images)
-                                item.images = item.images.split(';')[0];
-							if (item.tags)
-								item.tags = item.tags.split(' ');
-                            datalist.push(item);
-                        } 
+                        datalist=[];  
                     }
+					// 数据筛选，转换
+					for (var item of list.data) {
+						if (item.images)
+							item.images = function () {
+								let imgs = item.images.split(';');
+								for (var i of imgs) {
+									if (i != '') {
+										return i;
+									}
+								}
+							}();
+						if (item.tags)
+							item.tags = item.tags.split(' ');
+						datalist.push(item);
+					}
                     that.setData({
                         'dataList': datalist,
                         'map.page': that.data.map.page + 1,
