@@ -185,7 +185,7 @@ Page({
 				page:1
 			}
 		});
-		this.get_list(this.data.map);
+		this.get_list(this.data.map,1);
 	},
     // 下拉刷新
     onPullDownRefresh:function(e){       
