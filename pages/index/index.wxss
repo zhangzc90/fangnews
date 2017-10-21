@@ -90,7 +90,7 @@
 .tail{
     text-align: center;
     font-size: 24rpx;
-    padding: 8rpx 0;
+    padding: 15rpx 0;
     color: #9a999e;
 }
 .down{
@@ -109,4 +109,11 @@
 	margin-right: 10rpx;
 	font-size: 20rpx;
 	padding: 2rpx 4rpx;	
+}
+.loading{
+	padding: 20rpx 0 40rpx;
+	text-align: center
+}
+.loading image{
+	width: 80rpx;
 }

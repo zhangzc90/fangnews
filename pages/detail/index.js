@@ -12,6 +12,8 @@ Page({
 				id: 1,
 				latitude: '',
 				longitude: '',
+				width:20,
+				height:20,
 				callout: {
 					content: '',
 					borderRadius: 5,

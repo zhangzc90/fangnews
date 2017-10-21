@@ -46,6 +46,6 @@
 .tail{
     text-align: center;
     font-size: 24rpx;
-    padding: 8rpx 0;
+    padding: 15rpx 0;
     color: #9a999e;
 }

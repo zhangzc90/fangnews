@@ -78,6 +78,7 @@ Page({
             page: 1,
         },
         tailDisplay:'none',
+		loading:'none',
         dataList:[]
     },
 
@@ -211,9 +212,13 @@ Page({
     },
     // 获取列表信息
     get_list:function(args,refresh=0){
+		
         if(refresh)
             this.data.map.page=1;
         let that=this;
+		this.setData({
+			loading:'block'
+		});
         wx.request({
             header: { 'content-type': 'application/x-www-form-urlencoded'},
             method:'POST',
@@ -255,6 +260,9 @@ Page({
                 }
             },
             complete:function(){
+				that.setData({
+					loading: 'none'
+				});
                 wx.hideNavigationBarLoading() //完成停止加载
                 wx.stopPullDownRefresh() //停止下拉刷新
             }
